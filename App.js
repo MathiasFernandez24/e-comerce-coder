@@ -1,12 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { useState } from 'react';
 import CategoriesScreen from './Screens/CategoriesScreen';
+import ProductsScreen from './Screens/ProductsScreen';
+
+const [categorySelected, setCategorySelected] = useState(null)
+
+const handleCategory = (category) => {
+  setCategorySelected(category)
+}
 
 export default function App() {
   return (
     <View style={styles.container}>
-
-      <CategoriesScreen />
-
+      {categorySelected ?
+        <ProductsScreen category={categorySelected} handleCategory={handleCategory} />
+        :
+        <CategoriesScreen handleCategory={handleCategory} />
+      }
     </View>
   );
 }

@@ -17,10 +17,10 @@ const styles = StyleSheet.create({
     searcherContainer: {
         flexDirection: 'row',
         backgroundColor: colors.secundario,
-        width: "90%",
-        height: 120,
+        width: "93%",
         marginVertical: 20,
         borderRadius: 18,
+        alignItems: 'center',
 
         //Sombras
         shadowColor: "#000",

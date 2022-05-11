@@ -5,21 +5,33 @@ import Searcher from '../Components/Searcher'
 import { colors } from '../Styles/Colors'
 import { CATEGORIES } from '../Data/Categories'
 import ListIndex from '../Components/List/ListIndex'
+import { MaterialIcons } from '@expo/vector-icons'
 
 
-const CategoriesScreen = () => {
+
+const CategoriesScreen = ({ handleCategory }) => {
+
     const [input, setInput] = useState("")
     const [categoriesFilter, setCategoriesFilter] = useState(CATEGORIES)
 
     useEffect(() => {
         if (input === "") setCategoriesFilter(CATEGORIES)
         else {
-            console.log("se ejecuta el efecto");
-            categoriasFiltradas = categoriesFilter.filter(category => category.category.toLowerCase().includes(input.toLowerCase()))
+            console.log("Se ejecuta el efecto");
+            //utilize CATEGORIES en lugar de categoriesFilter, para que filtre al modificar cada letra 
+            categoriasFiltradas = CATEGORIES.filter(category => category.category.toLowerCase().includes(input.toLowerCase()))
             setCategoriesFilter(categoriasFiltradas)
         }
-
     }, [input])
+
+    const handleErase = () => {
+        setInput("");
+    }
+
+    const handleSelectedCategory = (category) => {
+        console.log(category);
+        handleCategory(category)
+    }
 
     return (
         <>
@@ -33,13 +45,14 @@ const CategoriesScreen = () => {
                         onChangeText={setInput}
                         keyboardType="default"
                         style={styles.input}
+                        placeholder="Ingrese categoria a buscar"
                     />
-                    <TouchableOpacity>
-                        <Text>Find</Text>
+                    <TouchableOpacity onPress={handleErase}>
+                        <MaterialIcons name="delete-forever" size={36} color="black" />
                     </TouchableOpacity>
                 </Searcher>
                 <View style={styles.listContainer}>
-                    <ListIndex data={categoriesFilter} />
+                    <List data={categoriesFilter} onPress={handleSelectedCategory} />
                 </View>
             </View>
         </>
@@ -65,5 +78,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: 50,
         borderWidth: 1,
+    },
+    listContainer: {
+        flex: 1,
     }
 })
