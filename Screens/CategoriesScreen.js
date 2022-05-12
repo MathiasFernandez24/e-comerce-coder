@@ -53,6 +53,8 @@ const CategoriesScreen = ({ handleCategory }) => {
                 </Searcher>
                 <View style={styles.listContainer}>
                     <ListIndex data={categoriesFilter} onPress={handleSelectedCategory} />
+                    {/*----------------------------------------------------- onPress (funcion vacia) */}
+                    {console.log("----categorias en el filtro => " + categoriesFilter.length)}
                 </View>
             </View>
         </>

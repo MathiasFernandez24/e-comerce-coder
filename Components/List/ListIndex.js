@@ -14,6 +14,7 @@ const ListIndex = ({ itemType = "category", data, onPress }) => {
                     <ProductItem product={item} />}
             </TouchableOpacity>
         )
+
     }
     return (
         <FlatList

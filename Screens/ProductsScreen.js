@@ -23,7 +23,7 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
         if (initialProducts.length !== 0) {
             if (input === "") { setProductsFiltered(initialProducts) }
             else {
-                const productosFiltrados = PRODUCTS.filter(product => product.description.toLowerCase().includes(input.toLowerCase()))
+                const productosFiltrados = initialProducts.filter(product => product.description.toLowerCase().includes(input.toLowerCase()))
                 setProductsFiltered(productosFiltrados)
             }
         } else { }
@@ -43,7 +43,10 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
             <Header title={"category".category} />
             <View style={styles.container}>
                 <Searcher additionalStyles={{
-                    backgroundColor: colors.secundario
+                    backgroundColor: colors.secundario,
+                    marginTop: -200,
+                    //Margin puesto para acomodar temporalmente la screen, muestra una imagen de React y un texto "Welcome to React Native"
+                    //tambien baja toda la view
                 }}>
                     <TextInput
                         value={input}
@@ -52,13 +55,20 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
                         style={styles.input}
                         placeholder="Ingrese producto a buscar"
                     />
+
                     <TouchableOpacity onPress={handleErase}>
                         <MaterialIcons name="delete-forever" size={36} color="black" />
                     </TouchableOpacity>
+
                 </Searcher>
+                <Button title="Go back" onPress={() => handleCategory(null)} />
+
                 <View style={styles.listContainer}>
-                    <ListIndex data={productsFiltered} itemType={"Producto"} />
-                    <Button title="Go back" onPress={() => handleCategory(null)} />
+                    <ListIndex data={productsFiltered} itemType={"Producto"} onPress={() => { }} />
+                    {/*----------------------------------------------------- onPress (funcion vacia) */}
+                    {console.log("----productos en el filtro => " + productsFiltered.length)}
+                    {/*aplicar if o similar para determinar si productsFiltered.length es 0, ejecute un texto*/}
+
                 </View>
             </View>
         </>
@@ -86,5 +96,9 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: 50,
         borderWidth: 1,
+    },
+    listContainer: {
+        marginTop: 20,
+
     }
 })
