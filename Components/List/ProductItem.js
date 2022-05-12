@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
         fontSize: 20,
         textAlign: 'center',
         marginBottom: 35,
+        fontFamily: "NunitoBlackItalic"
     }
 })

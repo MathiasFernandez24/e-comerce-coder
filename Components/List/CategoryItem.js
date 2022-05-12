@@ -14,8 +14,8 @@ export default CategoryItem
 
 const styles = StyleSheet.create({
     container: {
-        width: 150,
-        height: 150,
+        width: 170,
+        height: 170,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         padding: 15,
@@ -35,7 +35,8 @@ const styles = StyleSheet.create({
         elevation: 10,
     },
     text: {
-        fontSize: 18,
+        fontSize: 17,
+        fontFamily: "RubikGlitch"
 
     }
 
