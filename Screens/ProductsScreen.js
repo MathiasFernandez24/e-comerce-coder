@@ -20,14 +20,14 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
 
     //este UseEffect busca productos según el input
     useEffect(() => {
-        if (initialproducts.length !== 0) {
-            if (input === "") { setProductsFiltered(initialproducts) }
+        if (initialProducts.length !== 0) {
+            if (input === "") { setProductsFiltered(initialProducts) }
             else {
                 const productosFiltrados = PRODUCTS.filter(product => product.description.toLowerCase().includes(input.toLowerCase()))
                 setProductsFiltered(productosFiltrados)
             }
         } else { }
-    }, [input, initialproducts])
+    }, [input, initialProducts])
 
     //este UseEffect hace el filtro inicial de productos por categoria
     useEffect(() => {
@@ -35,7 +35,7 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
         setInitialProducts(productosIniciales)
     }, [])
 
-    console.log(initialproducts);
+    console.log(initialProducts);
     console.log(productsFiltered);
 
     return (

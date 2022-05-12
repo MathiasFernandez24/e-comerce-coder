@@ -52,7 +52,7 @@ const CategoriesScreen = ({ handleCategory }) => {
                     </TouchableOpacity>
                 </Searcher>
                 <View style={styles.listContainer}>
-                    <List data={categoriesFilter} onPress={handleSelectedCategory} />
+                    <ListIndex data={categoriesFilter} onPress={handleSelectedCategory} />
                 </View>
             </View>
         </>

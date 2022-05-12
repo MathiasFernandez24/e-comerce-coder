@@ -3,13 +3,13 @@ import { useState } from 'react';
 import CategoriesScreen from './Screens/CategoriesScreen';
 import ProductsScreen from './Screens/ProductsScreen';
 
-const [categorySelected, setCategorySelected] = useState(null)
-
-const handleCategory = (category) => {
-  setCategorySelected(category)
-}
-
 export default function App() {
+
+  const [categorySelected, setCategorySelected] = useState(null)
+  const handleCategory = (category) => {
+    setCategorySelected(category)
+  }
+
   return (
     <View style={styles.container}>
       {categorySelected ?
