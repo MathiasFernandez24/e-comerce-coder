@@ -19,7 +19,7 @@ const DetailScreen = ({ product, handleProduct }) => {
                 <Image
                     source={{ uri: product.image }}
                     style={orientation === 'vertical' ? styles.imageVertical : styles.imageHorizontal} />
-                <View>
+                <View style={{ paddingHorizontal: 20 }}>
                     <Text style={styles.textPrice}>$ {product.price}</Text>
                     <Text>{product.description}</Text>
                     <Button onPress={() => handleProduct(null)} title='Go Back' />
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         width: 0.94 * Dimensions.get('window').width,
         height: 0.94 * Dimensions.get('window').width,
         resizeMode: 'cover',
-        marginTop: 0.03 * Dimensions.get('window').width,
+        margin: 0.03 * Dimensions.get('window').width,
         borderRadius: 10,
         borderWidth: 2,
         borderColor: "black",
