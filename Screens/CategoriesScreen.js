@@ -1,4 +1,4 @@
-import { FlatList, TouchableOpacity, TextInput, StyleSheet, Text, View } from 'react-native'
+import { Keyboard, TouchableWithoutFeedback, KeyboardAvoidingView, FlatList, TouchableOpacity, TextInput, StyleSheet, Text, View } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Header from '../Components/Header'
 import Searcher from '../Components/Searcher'
@@ -35,32 +35,37 @@ const CategoriesScreen = ({ handleCategory }) => {
 
     return (
         <>
-            <Header />
-            <View style={styles.container}>
-                <Searcher additionalStyles={{
-                    backgroundColor: colors.secundario
-                }}>
-                    <TextInput
-                        value={input}
-                        onChangeText={setInput}
-                        keyboardType="default"
-                        style={styles.input}
-                        placeholder="Ingrese categoria a buscar"
-                    />
-                    <TouchableOpacity onPress={handleErase}>
-                        {/* <MaterialIcons name="delete-forever" size={36} color="black" /> */}
-                        <MaterialIcons name="delete-forever" size={36} color="black" style={{ margin: 8 }} />
-                    </TouchableOpacity>
-                </Searcher>
-                <View style={styles.listContainer}>
-                    {categoriesFilter.length !== 0 ?
-                        <ListIndex data={categoriesFilter} onPress={handleSelectedCategory} />
-                        :
-                        <Text>"El criterio de busqueda no coincide con ninguna categoria"</Text>}
 
-                    {/* {console.log("----categorias en el filtro => " + categoriesFilter.length)} */}
+            {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, }}> */}
+            <Header />
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
+                    <Searcher additionalStyles={{
+                        backgroundColor: colors.secundario
+                    }}>
+                        <TextInput
+                            value={input}
+                            onChangeText={setInput}
+                            keyboardType="default"
+                            style={styles.input}
+                            placeholder="Ingrese categoria a buscar"
+                        />
+                        <TouchableOpacity onPress={handleErase}>
+                            {/* <MaterialIcons name="delete-forever" size={36} color="black" /> */}
+                            <MaterialIcons name="delete-forever" size={36} color="black" style={{ margin: 8 }} />
+                        </TouchableOpacity>
+                    </Searcher>
+                    <View style={styles.listContainer}>
+                        {categoriesFilter.length !== 0 ?
+                            <ListIndex data={categoriesFilter} onPress={handleSelectedCategory} />
+                            :
+                            <Text>"El criterio de busqueda no coincide con ninguna categoria"</Text>}
+
+                        {/* {console.log("----categorias en el filtro => " + categoriesFilter.length)} */}
+                    </View>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
+            {/* </KeyboardAvoidingView> */}
         </>
     )
 }

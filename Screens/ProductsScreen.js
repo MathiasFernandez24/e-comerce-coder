@@ -1,4 +1,4 @@
-import { Dimensions, useWindowDimensions, Button, TextInput, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
+import { KeyboardAvoidingView, Keyboard, TouchableWithoutFeedback, Dimensions, useWindowDimensions, Button, TextInput, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Header from '../Components/Header'
 import Searcher from '../Components/Searcher'
@@ -10,7 +10,7 @@ import { colors } from '../Styles/Colors'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory }) => {
+const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleProduct, handleCategory }) => {
 
     const { width, height } = useWindowDimensions()
     const [input, setInput] = useState("");
@@ -41,51 +41,60 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
     // console.log(initialProducts);
     // console.log(productsFiltered);
 
+
+
     return (
         <>
             <Header title={category.category} />
-            <View style={styles.container}>
-                {/* <View style={{
-                    flexDirection: "row",
-                    flex: 1
-                }}> */}
+            {/* <View style={{
+                        flexDirection: "row",
+                        flex: 1
+                    }}> */}
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{ flex: 1 }}
+            >
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.container}>
 
-                <Searcher additionalStyles={{
-                    backgroundColor: colors.secundario
-                }}>
-                    <Button title={"<- Go \n back"} onPress={() => handleCategory(null)} style={{ margin: 10 }} />
+                        <Searcher additionalStyles={{
+                            backgroundColor: colors.secundario
+                        }}>
+                            <Button title={"<- Go \n back"} onPress={() => handleCategory(null)} style={{ margin: 10 }} />
 
-                    <TextInput
-                        value={input}
-                        onChangeText={setInput}
-                        keyboardType="default"
-                        style={styles.input}
-                        placeholder="Ingrese producto a buscar"
-                    />
+                            <TextInput
+                                value={input}
+                                onChangeText={setInput}
+                                keyboardType="default"
+                                style={styles.input}
+                                placeholder="Ingrese producto a buscar"
+                            />
 
-                    <TouchableOpacity onPress={handleErase}>
-                        <MaterialIcons name="delete-forever" size={36} color="black" style={{ margin: 8, }} />
-                    </TouchableOpacity>
+                            <TouchableOpacity onPress={handleErase}>
+                                <MaterialIcons name="delete-forever" size={36} color="black" style={{ margin: 8, }} />
+                            </TouchableOpacity>
 
-                </Searcher>
-                {/* </View> */}
+                        </Searcher>
+                        {/* </View> */}
 
-                {/* <Button title="<- Go back" onPress={() => handleCategory(null)} /> */}
-                {/* quite el button a modo de prueba y lo puse dentro de Search para tener mas pantalla */}
-                <View style={{
-                    ...styles.listContainer,
-                    height: height < 534 ? "75%" : "83%"
-                }}>{console.log(height)}
-                    {productsFiltered.length !== 0 ?
-                        <ListIndex data={productsFiltered} itemType={"Producto"} onPress={() => { }} />
-                        :
-                        <Text>"El criterio de busqueda no coincide con ningun producto disponible"</Text>}
-                    {/*----------------------------------------------------- onPress (funcion vacia) */}
-                    {/* {console.log("----productos en el filtro => " + productsFiltered.length)} */}
-                    {/*aplicar if o similar para determinar si productsFiltered.length es 0, ejecute un texto*/}
+                        {/* <Button title="<- Go back" onPress={() => handleCategory(null)} /> */}
+                        {/* quite el button a modo de prueba y lo puse dentro de Search para tener mas pantalla */}
+                        <View style={{
+                            ...styles.listContainer,
+                            height: height < 534 ? "76%" : "83%"
+                        }}>{console.log(height)}
+                            {productsFiltered.length !== 0 ?
+                                <ListIndex data={productsFiltered} itemType={"Producto"} onPress={handleProduct} />
+                                :
+                                <Text>"El criterio de busqueda no coincide con ningun producto disponible"</Text>}
+                            {/*----------------------------------------------------- onPress (funcion vacia) */}
+                            {/* {console.log("----productos en el filtro => " + productsFiltered.length)} */}
+                            {/*aplicar if o similar para determinar si productsFiltered.length es 0, ejecute un texto*/}
 
-                </View>
-            </View>
+                        </View>
+                    </View>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
         </>
 
     )

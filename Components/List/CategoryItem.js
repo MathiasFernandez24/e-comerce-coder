@@ -13,7 +13,7 @@ const CategoryItem = ({ category }) => {
         <View style={{
             ...styles.container,
             maxWidth: width * 0.44,
-            maxHeight: width * 0.44,
+            maxHeight: width * 0.44, //este width mantiene el ancho inicial al momento de ejecutar la app, lo que logra el efecto alargado de las categorias al girarlo
             margin: width * 0.03,
             /*con useWindowDimensions da el mismo error que en (styles.container -> margin) usando Dimensions*/
         }}>
@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     container: {
         // maxWidth: windowWidth * 0.44,
         // maxHeight: windowWidth * 0.44,
-        width: 170,
-        height: 170,
+        width: 3000,
+        height: windowWidth * 0.44,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
         padding: 8,

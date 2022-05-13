@@ -3,14 +3,23 @@ import { useState } from 'react';
 import CategoriesScreen from './Screens/CategoriesScreen';
 import ProductsScreen from './Screens/ProductsScreen';
 import { useFonts } from 'expo-font';
+import DetailScreen from './Screens/DetailScreen';
 
 
 export default function App() {
 
-  const [categorySelected, setCategorySelected] = useState(null)
+  const [categorySelected, setCategorySelected] = useState(null);
+  const [productSelected, setProductSelected] = useState(null);
+
   const handleCategory = (category) => {
     setCategorySelected(category)
   }
+  const handleProduct = (product) => {
+    setProductSelected(product)
+  }
+  console.log(categorySelected);
+  console.log(productSelected);
+
   const [loaded] = useFonts({
     DancingScriptBold: require('./assets/Fonts/DancingScript/static/DancingScript-Bold.ttf'),
     FjallaOneRegular: require('./assets/Fonts/Fjalla_One/FjallaOne-Regular.ttf'),
@@ -22,15 +31,18 @@ export default function App() {
   });
 
   if (!loaded) {
-    return null;
+    return <ActivityIndicator />;
   }
 
   return (
     <View style={styles.container}>
-      {categorySelected ?
-        <ProductsScreen category={categorySelected} handleCategory={handleCategory} />
-        :
+      {!categorySelected ?
         <CategoriesScreen handleCategory={handleCategory} />
+        :
+        !productSelected ?
+          <ProductsScreen category={categorySelected} handleProduct={handleProduct} handleCategory={handleCategory} />
+          :
+          <DetailScreen product={productSelected} handleProduct={handleProduct} />
       }
     </View>
   );
