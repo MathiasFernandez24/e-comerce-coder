@@ -1,4 +1,4 @@
-import { Button, TextInput, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, useWindowDimensions, Button, TextInput, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Header from '../Components/Header'
 import Searcher from '../Components/Searcher'
@@ -7,9 +7,12 @@ import ListIndex from '../Components/List/ListIndex'
 import { PRODUCTS } from '../Data/Products'
 import { colors } from '../Styles/Colors'
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory }) => {
 
+    const { width, height } = useWindowDimensions()
     const [input, setInput] = useState("");
     const [initialProducts, setInitialProducts] = useState([])
     const [productsFiltered, setProductsFiltered] = useState([])
@@ -42,9 +45,16 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
         <>
             <Header title={category.category} />
             <View style={styles.container}>
+                {/* <View style={{
+                    flexDirection: "row",
+                    flex: 1
+                }}> */}
+
                 <Searcher additionalStyles={{
-                    backgroundColor: colors.secundario,
+                    backgroundColor: colors.secundario
                 }}>
+                    <Button title={"<- Go \n back"} onPress={() => handleCategory(null)} style={{ margin: 10 }} />
+
                     <TextInput
                         value={input}
                         onChangeText={setInput}
@@ -54,13 +64,18 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
                     />
 
                     <TouchableOpacity onPress={handleErase}>
-                        <MaterialIcons name="delete-forever" size={36} color="black" />
+                        <MaterialIcons name="delete-forever" size={36} color="black" style={{ margin: 8, }} />
                     </TouchableOpacity>
 
                 </Searcher>
-                <Button title="<- Go back" onPress={() => handleCategory(null)} />
+                {/* </View> */}
 
-                <View style={styles.listContainer}>
+                {/* <Button title="<- Go back" onPress={() => handleCategory(null)} /> */}
+                {/* quite el button a modo de prueba y lo puse dentro de Search para tener mas pantalla */}
+                <View style={{
+                    ...styles.listContainer,
+                    height: height < 534 ? "75%" : "83%"
+                }}>{console.log(height)}
                     {productsFiltered.length !== 0 ?
                         <ListIndex data={productsFiltered} itemType={"Producto"} onPress={() => { }} />
                         :
@@ -88,17 +103,18 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     input: {
-        flexDirection: 'column',
-        width: "80%",
+        flex: 1,
+        width: "50%",
         padding: 10,
-        margin: 10,
+        marginVertical: 10,
+        marginStart: 10,
         backgroundColor: colors.terciario,
         borderRadius: 10,
         height: 50,
         borderWidth: 1,
     },
     listContainer: {
-        marginTop: 20,
-        height: "70%"
+        marginTop: 8,
+        // height: "50%", /*cambié por useWindowDimensions*/
     }
 })

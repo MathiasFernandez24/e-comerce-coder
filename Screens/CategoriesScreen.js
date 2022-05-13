@@ -48,7 +48,8 @@ const CategoriesScreen = ({ handleCategory }) => {
                         placeholder="Ingrese categoria a buscar"
                     />
                     <TouchableOpacity onPress={handleErase}>
-                        <MaterialIcons name="delete-forever" size={36} color="black" />
+                        {/* <MaterialIcons name="delete-forever" size={36} color="black" /> */}
+                        <MaterialIcons name="delete-forever" size={36} color="black" style={{ margin: 8 }} />
                     </TouchableOpacity>
                 </Searcher>
                 <View style={styles.listContainer}>
@@ -73,12 +74,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         // justifyContent: 'center',
         width: "100%",
+        height: "100%",
     },
     input: {
-        flexDirection: 'column',
-        width: "80%",
+        flex: 1,
+        width: "50%",
         padding: 10,
-        margin: 10,
+        marginVertical: 10,
         backgroundColor: colors.terciario,
         borderRadius: 10,
         height: 50,

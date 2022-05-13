@@ -1,10 +1,22 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Dimensions, useWindowDimensions, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { colors } from '../../Styles/Colors'
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const CategoryItem = ({ category }) => {
+    const { width, height } = useWindowDimensions();
+
+    console.log(windowWidth, windowHeight)
     return (
-        <View style={styles.container}>
+        <View style={{
+            ...styles.container,
+            maxWidth: width * 0.44,
+            maxHeight: width * 0.44,
+            margin: width * 0.03,
+            /*con useWindowDimensions da el mismo error que en (styles.container -> margin) usando Dimensions*/
+        }}>
             <Text style={styles.text}>{category.category}</Text>
         </View>
     )
@@ -14,13 +26,20 @@ export default CategoryItem
 
 const styles = StyleSheet.create({
     container: {
+        // maxWidth: windowWidth * 0.44,
+        // maxHeight: windowWidth * 0.44,
         width: 170,
         height: 170,
         justifyContent: 'flex-end',
         alignItems: 'flex-end',
-        padding: 15,
+        padding: 8,
         backgroundColor: colors.terciario,
-        margin: 15,
+
+        // margin: windowWidth * 0.03,
+        /*0.03 de margin * 4 bordes =0.12 | 1.00 ancho pantalla -0.12= 0.88| 0.88/2 =0.44 disponible para cada categoria
+        averiguar por que aumenta marginVertical cuanto aumento height, deberia ser el mismo margin para los 4 orientaciones (en este caso un 3% de la pantalla horizontal)
+        en web parece funcionar correctamente*/
+
         borderRadius: 10,
 
 
