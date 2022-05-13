@@ -1,6 +1,6 @@
 import { Button, TextInput, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import { Header } from 'react-native/Libraries/NewAppScreen'
+import Header from '../Components/Header'
 import Searcher from '../Components/Searcher'
 import { MaterialIcons } from '@expo/vector-icons'
 import ListIndex from '../Components/List/ListIndex'
@@ -35,18 +35,15 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
         setInitialProducts(productosIniciales)
     }, [])
 
-    console.log(initialProducts);
-    console.log(productsFiltered);
+    // console.log(initialProducts);
+    // console.log(productsFiltered);
 
     return (
         <>
-            <Header title={"category".category} />
+            <Header title={category.category} />
             <View style={styles.container}>
                 <Searcher additionalStyles={{
                     backgroundColor: colors.secundario,
-                    marginTop: -200,
-                    //Margin puesto para acomodar temporalmente la screen, muestra una imagen de React y un texto "Welcome to React Native"
-                    //tambien baja toda la view
                 }}>
                     <TextInput
                         value={input}
@@ -61,12 +58,15 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleCategory
                     </TouchableOpacity>
 
                 </Searcher>
-                <Button title="Go back" onPress={() => handleCategory(null)} />
+                <Button title="<- Go back" onPress={() => handleCategory(null)} />
 
                 <View style={styles.listContainer}>
-                    <ListIndex data={productsFiltered} itemType={"Producto"} onPress={() => { }} />
+                    {productsFiltered.length !== 0 ?
+                        <ListIndex data={productsFiltered} itemType={"Producto"} onPress={() => { }} />
+                        :
+                        <Text>"El criterio de busqueda no coincide con ningun producto disponible"</Text>}
                     {/*----------------------------------------------------- onPress (funcion vacia) */}
-                    {console.log("----productos en el filtro => " + productsFiltered.length)}
+                    {/* {console.log("----productos en el filtro => " + productsFiltered.length)} */}
                     {/*aplicar if o similar para determinar si productsFiltered.length es 0, ejecute un texto*/}
 
                 </View>
@@ -99,6 +99,6 @@ const styles = StyleSheet.create({
     },
     listContainer: {
         marginTop: 20,
-
+        height: "70%"
     }
 })

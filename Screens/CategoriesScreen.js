@@ -17,7 +17,7 @@ const CategoriesScreen = ({ handleCategory }) => {
     useEffect(() => {
         if (input === "") setCategoriesFilter(CATEGORIES)
         else {
-            console.log("Se ejecuta el efecto");
+            // console.log("Se ejecuta el efecto");
             //utilize CATEGORIES en lugar de categoriesFilter, para que filtre al modificar cada letra 
             categoriasFiltradas = CATEGORIES.filter(category => category.category.toLowerCase().includes(input.toLowerCase()))
             setCategoriesFilter(categoriasFiltradas)
@@ -29,7 +29,7 @@ const CategoriesScreen = ({ handleCategory }) => {
     }
 
     const handleSelectedCategory = (category) => {
-        console.log(category);
+        // console.log(category);
         handleCategory(category)
     }
 
@@ -52,8 +52,12 @@ const CategoriesScreen = ({ handleCategory }) => {
                     </TouchableOpacity>
                 </Searcher>
                 <View style={styles.listContainer}>
-                    <ListIndex data={categoriesFilter} onPress={handleSelectedCategory} />
-                    {console.log("----categorias en el filtro => " + categoriesFilter.length)}
+                    {categoriesFilter.length !== 0 ?
+                        <ListIndex data={categoriesFilter} onPress={handleSelectedCategory} />
+                        :
+                        <Text>"El criterio de busqueda no coincide con ninguna categoria"</Text>}
+
+                    {/* {console.log("----categorias en el filtro => " + categoriesFilter.length)} */}
                 </View>
             </View>
         </>
