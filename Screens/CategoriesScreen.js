@@ -9,7 +9,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 
 
 
-const CategoriesScreen = ({ handleCategory }) => {
+const CategoriesScreen = ({ navigation }) => {
 
     const [input, setInput] = useState("")
     const [categoriesFilter, setCategoriesFilter] = useState(CATEGORIES)
@@ -19,7 +19,7 @@ const CategoriesScreen = ({ handleCategory }) => {
         else {
             // console.log("Se ejecuta el efecto");
             //utilize CATEGORIES en lugar de categoriesFilter, para que filtre al modificar cada letra 
-            categoriasFiltradas = CATEGORIES.filter(category => category.category.toLowerCase().includes(input.toLowerCase()))
+            const categoriasFiltradas = CATEGORIES.filter(category => category.category.toLowerCase().includes(input.toLowerCase()))
             setCategoriesFilter(categoriasFiltradas)
         }
     }, [input])
@@ -30,7 +30,8 @@ const CategoriesScreen = ({ handleCategory }) => {
 
     const handleSelectedCategory = (category) => {
         // console.log(category);
-        handleCategory(category)
+        //handleCategory(category)
+        navigation.navigate("Products")
     }
 
     return (

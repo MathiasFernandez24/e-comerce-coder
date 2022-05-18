@@ -6,11 +6,12 @@ import { MaterialIcons } from '@expo/vector-icons'
 import ListIndex from '../Components/List/ListIndex'
 import { PRODUCTS } from '../Data/Products'
 import { colors } from '../Styles/Colors'
+import { NavigationContainer } from '@react-navigation/native'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleProduct, handleCategory }) => {
+const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation }) => {
 
     const { width, height } = useWindowDimensions()
     const [input, setInput] = useState("");
@@ -41,7 +42,10 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleProduct,
     // console.log(initialProducts);
     // console.log(productsFiltered);
 
-
+    const handleDetailProduct = () => {
+        console.log("se navegara al Details");
+        navigation.navigate("Details");
+    }
 
     return (
         <>
@@ -60,7 +64,7 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleProduct,
                         <Searcher additionalStyles={{
                             backgroundColor: colors.secundario
                         }}>
-                            <Button title={"<- Go \n back"} onPress={() => handleCategory(null)} style={{ margin: 10 }} />
+                            <Button title={"<- Go \n back"} onPress={() => navigation.goBack()} style={{ margin: 10 }} />
 
                             <TextInput
                                 value={input}
@@ -84,7 +88,7 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, handleProduct,
                             height: height < 534 ? "76%" : "83%"
                         }}>{console.log(height)}
                             {productsFiltered.length !== 0 ?
-                                <ListIndex data={productsFiltered} itemType={"Producto"} onPress={handleProduct} />
+                                <ListIndex data={productsFiltered} itemType={"Producto"} onPress={handleDetailProduct} />
                                 :
                                 <Text>"El criterio de busqueda no coincide con ningun producto disponible"</Text>}
                             {/*----------------------------------------------------- onPress (funcion vacia) */}

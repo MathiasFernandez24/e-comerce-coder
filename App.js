@@ -5,21 +5,22 @@ import ProductsScreen from './Screens/ProductsScreen';
 import { useFonts } from 'expo-font';
 import DetailScreen from './Screens/DetailScreen';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import MainNavigator from './Navigation/Shop/Index';
 
 
 export default function App() {
 
-  const [categorySelected, setCategorySelected] = useState(null);
-  const [productSelected, setProductSelected] = useState(null);
+  // const [categorySelected, setCategorySelected] = useState(null);
+  // const [productSelected, setProductSelected] = useState(null);
 
-  const handleCategory = (category) => {
-    setCategorySelected(category)
-  }
-  const handleProduct = (product) => {
-    setProductSelected(product)
-  }
-  console.log(categorySelected);
-  console.log(productSelected);
+  // const handleCategory = (category) => {
+  //   setCategorySelected(category)
+  // }
+  // const handleProduct = (product) => {
+  //   setProductSelected(product)
+  // }
+  // console.log(categorySelected);
+  // console.log(productSelected);
 
   const [loaded] = useFonts({
     DancingScriptBold: require('./assets/Fonts/DancingScript/static/DancingScript-Bold.ttf'),
@@ -37,22 +38,8 @@ export default function App() {
 
   return (
     <SafeAreaView style={{ flex: 1, }}>
-      {!categorySelected ?
-        <CategoriesScreen handleCategory={handleCategory} />
-        :
-        !productSelected ?
-          <ProductsScreen category={categorySelected} handleProduct={handleProduct} handleCategory={handleCategory} />
-          :
-          <DetailScreen product={productSelected} handleProduct={handleProduct} />
-      }
+      <MainNavigator />
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    //    justifyContent: 'center',
-  },
-});

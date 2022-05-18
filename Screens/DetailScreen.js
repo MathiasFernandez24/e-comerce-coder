@@ -2,9 +2,19 @@ import { useWindowDimensions, Button, StyleSheet, Text, View, Image, Dimensions 
 import React, { useState, useEffect } from 'react'
 import Header from '../Components/Header'
 import CategoryItem from '../Components/List/CategoryItem'
+import ListIndex from '../Components/List/ListIndex'
 
 
-const DetailScreen = ({ product, handleProduct }) => {
+
+const DetailScreen = ({ product =
+    {
+        id: 8,
+        category: 4,
+        description: "Product 8",
+        price: 80.63,
+        image: "https://picsum.photos/200/300"
+    }, navigation
+}) => {
     const { width, height } = useWindowDimensions()
     const [orientation, setOrientation] = useState("vertical")
     useEffect(() => {
@@ -22,7 +32,7 @@ const DetailScreen = ({ product, handleProduct }) => {
                 <View style={{ paddingHorizontal: 20 }}>
                     <Text style={styles.textPrice}>$ {product.price}</Text>
                     <Text>{product.description}</Text>
-                    <Button onPress={() => handleProduct(null)} title='Go Back' />
+                    <Button onPress={() => navigation.goBack()} title='Go Back' />
 
                 </View>
             </View>
