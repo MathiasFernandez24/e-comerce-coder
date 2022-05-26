@@ -31,14 +31,17 @@ const CategoriesScreen = ({ navigation }) => {
     const handleSelectedCategory = (category) => {
         // console.log(category);
         //handleCategory(category)
-        navigation.navigate("Products")
+        navigation.push("Products", {
+            categoryId: category.id,
+            categoryTitle: category.category,
+        })
     }
 
     return (
         <>
 
             {/* <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={{ flex: 1, }}> */}
-            <Header />
+            {/* <Header /> */}
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <View style={styles.container}>
                     <Searcher additionalStyles={{

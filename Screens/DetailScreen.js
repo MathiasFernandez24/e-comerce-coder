@@ -3,40 +3,57 @@ import React, { useState, useEffect } from 'react'
 import Header from '../Components/Header'
 import CategoryItem from '../Components/List/CategoryItem'
 import ListIndex from '../Components/List/ListIndex'
+import { PRODUCTS } from '../Data/Products'
 
 
 
-const DetailScreen = ({ product =
-    {
-        id: 8,
-        category: 4,
-        description: "Product 8",
-        price: 80.63,
-        image: "https://picsum.photos/200/300"
-    }, navigation
+const DetailScreen = ({ route, navigation
 }) => {
+
+    const { productId } = route.params
+    console.log(productId);
+    // const product =
+    // {
+    //     id: 1,
+    //     category: 1,
+    //     description: "Product 1",
+    //     price: 29.99,
+    //     image: "https://picsum.photos/200/300",
+    // }
+
+
+
     const { width, height } = useWindowDimensions()
+    const [product, setProduct] = useState(null)
     const [orientation, setOrientation] = useState("vertical")
     useEffect(() => {
         setOrientation(height > width ? "vertical" : "horizontal")
     }, [height, width])
     console.log(orientation)
 
-    return (
-        <>
-            <Header title={product.description} />
-            <View style={orientation === 'vertical' ? styles.containerVertical : styles.containerHorizontal}>
-                <Image
-                    source={{ uri: product.image }}
-                    style={orientation === 'vertical' ? styles.imageVertical : styles.imageHorizontal} />
-                <View style={{ paddingHorizontal: 20 }}>
-                    <Text style={styles.textPrice}>$ {product.price}</Text>
-                    <Text>{product.description}</Text>
-                    <Button onPress={() => navigation.goBack()} title='Go Back' />
 
+    useEffect(() => {
+        const productSelected = PRODUCTS.find(product => product.id === productId);
+        setProduct(productSelected);
+    }, [productId])
+
+    return (
+        product && (
+            <>
+                {/* <Header title={product.description} /> */}
+                <View style={orientation === 'vertical' ? styles.containerVertical : styles.containerHorizontal}>
+                    <Image
+                        source={{ uri: product?.image }}
+                        style={orientation === 'vertical' ? styles.imageVertical : styles.imageHorizontal} />
+                    <View style={{ paddingHorizontal: 20 }}>
+                        <Text style={styles.textPrice}>$ {product?.price}</Text>
+                        <Text>{product?.description}</Text>
+                        <Button onPress={() => navigation.goBack()} title='Go Back' />
+
+                    </View>
                 </View>
-            </View>
-        </>
+            </>
+        )
     )
 }
 

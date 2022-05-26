@@ -11,12 +11,15 @@ import { NavigationContainer } from '@react-navigation/native'
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation }) => {
+const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation, route }) => {
 
     const { width, height } = useWindowDimensions()
     const [input, setInput] = useState("");
     const [initialProducts, setInitialProducts] = useState([])
     const [productsFiltered, setProductsFiltered] = useState([])
+    const { categoryId } = route.params
+    // console.log(route.params)
+
 
     const handleErase = () => {
         setInput("")
@@ -35,21 +38,26 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation }) 
 
     //este UseEffect hace el filtro inicial de productos por categoria
     useEffect(() => {
-        const productosIniciales = PRODUCTS.filter(product => product.category === category.id)
+        const productosIniciales = PRODUCTS.filter(product => product.category === categoryId)
         setInitialProducts(productosIniciales)
-    }, [])
+    }, [categoryId])
 
     // console.log(initialProducts);
     // console.log(productsFiltered);
 
-    const handleDetailProduct = () => {
-        console.log("se navegara al Details");
-        navigation.navigate("Details");
+    const handleDetailProduct = (product) => {
+        // console.log("se navegara al Details");
+        navigation.navigate("Details",
+            {
+                productId: product.id,
+                productTitle: product.description,
+            });
+        console.log(product)
     }
 
     return (
         <>
-            <Header title={category.category} />
+            {/* <Header title={category.category} /> */}
             {/* <View style={{
                         flexDirection: "row",
                         flex: 1
