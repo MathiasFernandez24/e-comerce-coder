@@ -8,7 +8,7 @@ const windowHeight = Dimensions.get('window').height;
 const CategoryItem = ({ category }) => {
     const { width, height } = useWindowDimensions();
 
-    console.log(windowWidth, windowHeight)
+    // console.log(windowWidth, windowHeight)
     return (
         <View style={{
             ...styles.container,
@@ -24,7 +24,7 @@ const CategoryItem = ({ category }) => {
 
 export default CategoryItem
 
-const styles = StyleSheet.create({
+const styles = ({
     container: {
         // maxWidth: windowWidth * 0.44,
         // maxHeight: windowWidth * 0.44,

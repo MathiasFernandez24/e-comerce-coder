@@ -20,7 +20,7 @@ const ProductItem = ({ product }) => {
 
 export default ProductItem
 
-const styles = StyleSheet.create({
+const styles = ({
     image: {
         // width: 300,
         // height: 300,

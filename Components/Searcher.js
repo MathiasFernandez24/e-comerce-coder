@@ -12,7 +12,7 @@ const Searcher = ({ children, additionalStyles }) => {
 
 export default Searcher
 
-const styles = StyleSheet.create({
+const styles = ({
 
     searcherContainer: {
         flexDirection: 'row',

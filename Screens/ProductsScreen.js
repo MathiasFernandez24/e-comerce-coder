@@ -62,51 +62,51 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation, ro
                         flexDirection: "row",
                         flex: 1
                     }}> */}
-            <KeyboardAvoidingView
+            {/* <KeyboardAvoidingView
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 style={{ flex: 1 }}
-            >
-                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                    <View style={styles.container}>
+            > */}
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <View style={styles.container}>
 
-                        <Searcher additionalStyles={{
-                            backgroundColor: colors.secundario
-                        }}>
-                            <Button title={"<- Go \n back"} onPress={() => navigation.goBack()} style={{ margin: 10 }} />
+                    <Searcher additionalStyles={{
+                        backgroundColor: colors.secundario
+                    }}>
+                        <Button title={"<- Go \n back"} onPress={() => navigation.goBack()} style={{ margin: 10 }} />
 
-                            <TextInput
-                                value={input}
-                                onChangeText={setInput}
-                                keyboardType="default"
-                                style={styles.input}
-                                placeholder="Ingrese producto a buscar"
-                            />
+                        <TextInput
+                            value={input}
+                            onChangeText={setInput}
+                            keyboardType="default"
+                            style={styles.input}
+                            placeholder="Ingrese producto a buscar"
+                        />
 
-                            <TouchableOpacity onPress={handleErase}>
-                                <MaterialIcons name="delete-forever" size={36} color="black" style={{ margin: 8, }} />
-                            </TouchableOpacity>
+                        <TouchableOpacity onPress={handleErase}>
+                            <MaterialIcons name="delete-forever" size={36} color="black" style={{ margin: 8, }} />
+                        </TouchableOpacity>
 
-                        </Searcher>
-                        {/* </View> */}
+                    </Searcher>
+                    {/* </View> */}
 
-                        {/* <Button title="<- Go back" onPress={() => handleCategory(null)} /> */}
-                        {/* quite el button a modo de prueba y lo puse dentro de Search para tener mas pantalla */}
-                        <View style={{
-                            ...styles.listContainer,
-                            height: height < 534 ? "76%" : "83%"
-                        }}>{console.log(height)}
-                            {productsFiltered.length !== 0 ?
-                                <ListIndex data={productsFiltered} itemType={"Producto"} onPress={handleDetailProduct} />
-                                :
-                                <Text>"El criterio de busqueda no coincide con ningun producto disponible"</Text>}
-                            {/*----------------------------------------------------- onPress (funcion vacia) */}
-                            {/* {console.log("----productos en el filtro => " + productsFiltered.length)} */}
-                            {/*aplicar if o similar para determinar si productsFiltered.length es 0, ejecute un texto*/}
+                    {/* <Button title="<- Go back" onPress={() => handleCategory(null)} /> */}
+                    {/* quite el button a modo de prueba y lo puse dentro de Search para tener mas pantalla */}
+                    <View style={{
+                        ...styles.listContainer,
+                        height: height < 534 ? "76%" : "83%"
+                    }}>{console.log(height)}
+                        {productsFiltered.length !== 0 ?
+                            <ListIndex data={productsFiltered} itemType={"Producto"} onPress={handleDetailProduct} />
+                            :
+                            <Text>"El criterio de busqueda no coincide con ningun producto disponible"</Text>}
+                        {/*----------------------------------------------------- onPress (funcion vacia) */}
+                        {/* {console.log("----productos en el filtro => " + productsFiltered.length)} */}
+                        {/*aplicar if o similar para determinar si productsFiltered.length es 0, ejecute un texto*/}
 
-                        </View>
                     </View>
-                </TouchableWithoutFeedback>
-            </KeyboardAvoidingView>
+                </View>
+            </TouchableWithoutFeedback>
+            {/* </KeyboardAvoidingView> */}
         </>
 
     )
@@ -114,7 +114,7 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation, ro
 
 export default ProductsScreen
 
-const styles = StyleSheet.create({
+const styles = ({
 
     container: {
         flex: 1,

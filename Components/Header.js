@@ -12,7 +12,7 @@ const Header = ({ title = "E-commerce" }) => {
 
 export default Header
 
-const styles = StyleSheet.create({
+const styles = ({
     container: {
         backgroundColor: colors.primario,
         paddingVertical: 5,

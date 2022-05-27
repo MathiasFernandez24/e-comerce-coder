@@ -6,6 +6,8 @@ import { colors } from '../Styles/Colors'
 import { CATEGORIES } from '../Data/Categories'
 import ListIndex from '../Components/List/ListIndex'
 import { MaterialIcons } from '@expo/vector-icons'
+import { useSelector } from 'react-redux'
+import Categories from '../Features/Categories'
 
 
 
@@ -13,6 +15,9 @@ const CategoriesScreen = ({ navigation }) => {
 
     const [input, setInput] = useState("")
     const [categoriesFilter, setCategoriesFilter] = useState(CATEGORIES)
+
+    // const categories = useSelector(state => state.categories.value)
+    console.log(CATEGORIES);
 
     useEffect(() => {
         if (input === "") setCategoriesFilter(CATEGORIES)
@@ -76,7 +81,7 @@ const CategoriesScreen = ({ navigation }) => {
 
 export default CategoriesScreen
 
-const styles = StyleSheet.create({
+const styles = ({
     container: {
         flex: 1,
         alignItems: 'center',
