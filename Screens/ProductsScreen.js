@@ -7,6 +7,8 @@ import ListIndex from '../Components/List/ListIndex'
 import { PRODUCTS } from '../Data/Products'
 import { colors } from '../Styles/Colors'
 import { NavigationContainer } from '@react-navigation/native'
+import { useDispatch, useSelector } from 'react-redux'
+import { setProductSelected } from '../Features/Products'
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -15,10 +17,12 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation, ro
 
     const { width, height } = useWindowDimensions()
     const [input, setInput] = useState("");
-    const [initialProducts, setInitialProducts] = useState([])
+    // const [initialProducts, setInitialProducts] = useState([])
     const [productsFiltered, setProductsFiltered] = useState([])
+    const { products } = useSelector(state => state.products.value)
     const { categoryId } = route.params
-    // console.log(route.params)
+    const { productsByCategory } = useSelector(state => state.products.value)
+    const dispatch = useDispatch()
 
 
     const handleErase = () => {
@@ -27,30 +31,32 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation, ro
 
     //este UseEffect busca productos según el input
     useEffect(() => {
-        if (initialProducts.length !== 0) {
-            if (input === "") { setProductsFiltered(initialProducts) }
+        if (productsByCategory.length !== 0) {
+            if (input === "") { setProductsFiltered(productsByCategory) }
             else {
-                const productosFiltrados = initialProducts.filter(product => product.description.toLowerCase().includes(input.toLowerCase()))
+                const productosFiltrados = productsByCategory.filter(product => product.description.toLowerCase().includes(input.toLowerCase()))
                 setProductsFiltered(productosFiltrados)
             }
         } else { }
-    }, [input, initialProducts])
+    }, [input, productsByCategory])
 
     //este UseEffect hace el filtro inicial de productos por categoria
-    useEffect(() => {
-        const productosIniciales = PRODUCTS.filter(product => product.category === categoryId)
-        setInitialProducts(productosIniciales)
-    }, [categoryId])
+    // useEffect(() => {
+    //     const productosIniciales = products.filter(product => product.category === categoryId)
+    //     setInitialProducts(productosIniciales)
+    // }, [categoryId])
 
     // console.log(initialProducts);
     // console.log(productsFiltered);
 
     const handleDetailProduct = (product) => {
         // console.log("se navegara al Details");
+        dispatch(setProductSelected(product.id))
         navigation.navigate("Details",
             {
-                productId: product.id,
-                productTitle: product.description,
+                categoryTitle: category.category
+                // productId: product.id,
+                // productTitle: product.description,
             });
         console.log(product)
     }

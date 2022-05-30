@@ -6,25 +6,30 @@ import { colors } from '../Styles/Colors'
 import { CATEGORIES } from '../Data/Categories'
 import ListIndex from '../Components/List/ListIndex'
 import { MaterialIcons } from '@expo/vector-icons'
-import { useSelector } from 'react-redux'
-import Categories from '../Features/Categories'
+import { useDispatch, useSelector } from 'react-redux'
+import Categories, { selectCategory } from '../Features/Categories'
+import { setProductsByCategory } from '../Features/Products'
 
 
 
 const CategoriesScreen = ({ navigation }) => {
 
     const [input, setInput] = useState("")
-    const [categoriesFilter, setCategoriesFilter] = useState(CATEGORIES)
+    const [categoriesFilter, setCategoriesFilter] = useState()
+
+    const { categories } = useSelector(state => state.categories.value)
+    const dispatch = useDispatch()
+    // console.log(categories);
 
     // const categories = useSelector(state => state.categories.value)
-    console.log(CATEGORIES);
+    //console.log(CATEGORIES);
 
     useEffect(() => {
-        if (input === "") setCategoriesFilter(CATEGORIES)
+        if (input === "") setCategoriesFilter(categories)
         else {
             // console.log("Se ejecuta el efecto");
             //utilize CATEGORIES en lugar de categoriesFilter, para que filtre al modificar cada letra 
-            const categoriasFiltradas = CATEGORIES.filter(category => category.category.toLowerCase().includes(input.toLowerCase()))
+            const categoriasFiltradas = categories.filter(category => category.category.toLowerCase().includes(input.toLowerCase()))
             setCategoriesFilter(categoriasFiltradas)
         }
     }, [input])
@@ -36,6 +41,9 @@ const CategoriesScreen = ({ navigation }) => {
     const handleSelectedCategory = (category) => {
         // console.log(category);
         //handleCategory(category)
+
+        dispatch(setProductsByCategory(category.id))
+        dispatch(selectCategory(category.id))
         navigation.push("Products", {
             categoryId: category.id,
             categoryTitle: category.category,
@@ -65,10 +73,10 @@ const CategoriesScreen = ({ navigation }) => {
                         </TouchableOpacity>
                     </Searcher>
                     <View style={styles.listContainer}>
-                        {categoriesFilter.length !== 0 ?
-                            <ListIndex data={categoriesFilter} onPress={handleSelectedCategory} />
-                            :
-                            <Text>"El criterio de busqueda no coincide con ninguna categoria"</Text>}
+                        {/* {categoriesFilter.length !== 0 ? */}
+                        <ListIndex data={categoriesFilter} onPress={handleSelectedCategory} />
+                        {/* : */}
+                        {/* <Text>"El criterio de busqueda no coincide con ninguna categoria"</Text>} */}
 
                         {/* {console.log("----categorias en el filtro => " + categoriesFilter.length)} */}
                     </View>

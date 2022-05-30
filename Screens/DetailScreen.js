@@ -4,14 +4,17 @@ import Header from '../Components/Header'
 import CategoryItem from '../Components/List/CategoryItem'
 import ListIndex from '../Components/List/ListIndex'
 import { PRODUCTS } from '../Data/Products'
+import { useSelector } from 'react-redux'
 
 
 
 const DetailScreen = ({ route, navigation
 }) => {
 
-    const { productId } = route.params
-    console.log(productId);
+    // const { productId } = route.params
+    const { productSelected } = useSelector(state => state.products.value)
+    // console.log(productId);
+
     // const product =
     // {
     //     id: 1,
@@ -24,30 +27,31 @@ const DetailScreen = ({ route, navigation
 
 
     const { width, height } = useWindowDimensions()
-    const [product, setProduct] = useState(null)
+    // const [product, setProduct] = useState(null)
     const [orientation, setOrientation] = useState("vertical")
+
     useEffect(() => {
         setOrientation(height > width ? "vertical" : "horizontal")
     }, [height, width])
     console.log(orientation)
 
 
-    useEffect(() => {
-        const productSelected = PRODUCTS.find(product => product.id === productId);
-        setProduct(productSelected);
-    }, [productId])
+    // useEffect(() => {
+    //     const productSelected = PRODUCTS.find(product => product.id === productId);
+    //     setProduct(productSelected);
+    // }, [productId])
 
     return (
-        product && (
+        productSelected && (
             <>
                 {/* <Header title={product.description} /> */}
                 <View style={orientation === 'vertical' ? styles.containerVertical : styles.containerHorizontal}>
                     <Image
-                        source={{ uri: product?.image }}
+                        source={{ uri: productSelected?.image }}
                         style={orientation === 'vertical' ? styles.imageVertical : styles.imageHorizontal} />
                     <View style={{ paddingHorizontal: 20 }}>
-                        <Text style={styles.textPrice}>$ {product?.price}</Text>
-                        <Text>{product?.description}</Text>
+                        <Text style={styles.textPrice}>$ {productSelected?.price}</Text>
+                        <Text>{productSelected?.description}</Text>
                         <Button onPress={() => navigation.goBack()} title='Go Back' />
 
                     </View>

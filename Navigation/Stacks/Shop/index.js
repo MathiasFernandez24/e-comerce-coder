@@ -8,6 +8,7 @@ import DetailScreen from '../../../Screens/DetailScreen';
 import { colors } from '../../../Styles/Colors';
 import Header from '../../../Components/Header';
 
+
 const Stack = createNativeStackNavigator();
 
 function ShopNavigator() {
@@ -48,6 +49,9 @@ function ShopNavigator() {
                 component={DetailScreen}
                 options={({ route }) => ({
                     title: route.params.productTitle,
+
+                    // title: productSelected.description,  /*AVERIGUAR COMO IMPLEMENTAR ESTA IDEA*/
+
                     headerTintColor: "black",
                     headerStyle: { backgroundColor: colors.secundario },
 
