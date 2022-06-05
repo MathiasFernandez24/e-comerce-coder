@@ -1,15 +1,12 @@
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import CartItem from '../Components/CartItem'
-import PRODUCTSSELECTED from '../Data/ProductSelected'
+// import PRODUCTSSELECTED from '../Data/ProductSelected'
 import { colors } from '../Styles/Colors'
+import { useDispatch, useSelector } from 'react-redux'
+import { confirmPurchase } from '../Features/Cart'
 
-const handleConfirm = () => {
-    console.log("Se confirma la compra");
-}
-const handleDeleteItem = (id) => {
-    console.log(`Se elimina del carrito el producto con el id: ${id}`);
-}
+const handleDeleteItem = (id) => { console.log(`Se elimina del carrito el producto con el id: ${id}`) }
 
 const renderItem = (data) => {
     return (
@@ -19,13 +16,21 @@ const renderItem = (data) => {
 
 const CartScreen = () => {
 
+    const dispatch = useDispatch()
+    const { cart } = useSelector(state => state.cart.value)
+    console.log(cart);
+
+    const handleConfirm = () => {
+        dispatch(confirmPurchase(cart))
+    }
+
     const total = "$12.000";
 
     return (
         <View style={styles.container}>
             <View style={styles.list}>
                 <FlatList
-                    data={PRODUCTSSELECTED}
+                    data={cart}
                     keyExtractor={item => item.id}
                     renderItem={renderItem}
                 />

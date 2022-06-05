@@ -4,7 +4,8 @@ import Header from '../Components/Header'
 import CategoryItem from '../Components/List/CategoryItem'
 import ListIndex from '../Components/List/ListIndex'
 import { PRODUCTS } from '../Data/Products'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItem } from '../Features/Cart'
 
 
 
@@ -25,6 +26,11 @@ const DetailScreen = ({ route, navigation
     // }
 
 
+    // const handleBack = () => { navigation.goBack() }
+    const dispatch = useDispatch();
+    const handleAdd = (id) => {
+        dispatch(addItem({ id: id }))
+    }
 
     const { width, height } = useWindowDimensions()
     // const [product, setProduct] = useState(null)
@@ -53,6 +59,7 @@ const DetailScreen = ({ route, navigation
                         <Text style={styles.textPrice}>$ {productSelected?.price}</Text>
                         <Text>{productSelected?.description}</Text>
                         <Button onPress={() => navigation.goBack()} title='Go Back' />
+                        <Button onPress={() => handleAdd(productSelected.id)} title=" Add to Cart" />
 
                     </View>
                 </View>
