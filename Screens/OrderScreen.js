@@ -2,7 +2,7 @@ import { StyleSheet, Text, View, FlatList } from 'react-native'
 import React, { useEffect } from 'react'
 import OrderItem from '../Components/OrderItem'
 import ORDERS from '../Data/orders'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { getOrders } from '../Features/orders'
 
 const renderItem = ({ item }) => (
@@ -14,9 +14,13 @@ const renderItem = ({ item }) => (
 
 const OrderScreen = () => {
 
+    const { orders } = useSelector(state => state.orders.value)
+    const { user } = useSelector(state => state.auth.value)
+    console.log(orders);
+
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getOrders)
+        dispatch(getOrders(user.email))
     }, [])
 
     return (

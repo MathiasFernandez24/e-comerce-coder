@@ -10,6 +10,7 @@ import CartStack from '../../Stacks/Cart'
 import { Entypo } from '@expo/vector-icons';
 import { Fontisto } from '@expo/vector-icons';
 import OrdersStack from '../../Stacks/Orders'
+import LocationStack from '../../Stacks/Locations';
 
 //import OrdersStack from '../../Stacks/Orders'
 
@@ -61,6 +62,20 @@ const TabNavigatorLogged = () => {
                             <View style={styles.item}>
                                 <MaterialCommunityIcons name="order-bool-descending-variant" size={24} color="black" />
                                 <Text>Ordenes</Text>
+                            </View>
+                        )
+                    }
+                }}
+            />
+            <BottomTabs.Screen
+                name="LocationTab"
+                component={LocationStack}
+                options={{
+                    tabBarIcon: ({ focused }) => {
+                        return (
+                            <View style={styles.item}>
+                                <MaterialCommunityIcons name="map-marker-radius" size={24} color="black" />
+                                <Text>Direcciones</Text>
                             </View>
                         )
                     }
