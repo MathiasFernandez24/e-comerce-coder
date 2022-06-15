@@ -7,11 +7,15 @@ import { useDispatch } from 'react-redux';
 import { addLocation } from '../Features/Locations';
 
 
-const SaveLocationScreen = () => {
+const SaveLocationScreen = ({ navigation, route }) => {
     const [title, setTitle] = React.useState("")
     const [picture, setPicture] = React.useState("")
 
-    const dispatch = useDispatch()
+    const params = route.params;
+    console.log("--------------->");
+    console.log(params?.address);
+
+    const dispatch = useDispatch();
 
     const handlePickLibrary = async () => {
         // No permissions request is necessary for launching the image library
@@ -48,28 +52,37 @@ const SaveLocationScreen = () => {
         const image = await ImagePicker.launchCameraAsync({
             allowsEditing: true,
             aspect: [16, 9],
-            quality: 0.8,
+            quality: 1,
         })
+
         console.log(image);
         setPicture(image.uri);
     }
 
     const handleConfirm = async () => {
-        const path = await renamePathAndMove(picture);
-        console.log(path);
-        dispatch(addLocation({ title, picture, id: Date.now() }))
+        // const path = await renamePathAndMove(picture);
+        // console.log(path);
+        dispatch(addLocation({ title, picture, id: Date.now(), address: params?.address }))
         setTitle("");
         setPicture("");
+    }
+
+    const handleLocation = () => {
+        navigation.navigate("Get-location")
+    }
+
+    const handleSetLocation = () => {
+        navigation.navigate("Set-location")
     }
 
     return (
         <View style={styles.container}>
             <Text>Nueva dirección</Text>
             <TextInput
+                style={styles.input}
                 value={title}
                 onChangeText={setTitle}
                 placeholder="Título"
-                style={styles.input}
             />
             {picture ?
                 <Image
@@ -80,6 +93,8 @@ const SaveLocationScreen = () => {
             }
             <Button title='Tomar una foto' onPress={handleTakePicture} />
             <Button title="Seleccionar de la galería" onPress={handlePickLibrary} />
+            <Button title="Obtener una ubicación" onPress={handleLocation} />
+            <Button title="Definir una ubicación" onPress={handleSetLocation} />
             <Button title="Confirmar" onPress={handleConfirm}></Button>
         </View>
     )

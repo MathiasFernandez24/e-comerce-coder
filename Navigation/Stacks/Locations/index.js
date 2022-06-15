@@ -4,6 +4,8 @@ import LocationsScreen from "../../../Screens/LocationsScreen"
 import { colors } from "../../../Styles/Colors";
 import { Ionicons } from '@expo/vector-icons';
 import SaveLocationScreen from "../../../Screens/SaveLocationScreen";
+import GetLocationScreen from "../../../Screens/GetLocationScreen";
+import SetLocationScreen from "../../../Screens/SetLocationScreen";
 
 
 const Stack = createNativeStackNavigator();
@@ -34,7 +36,7 @@ const LocationStack = () => {
                     title: "Direcciones",
                     headerRight: () => {
                         return (
-                            <TouchableOpacity onPress={() => navigation.navigate("Save-Location")}>
+                            <TouchableOpacity onPress={() => navigation.navigate("Save-location")}>
                                 <Ionicons name="add-circle" size={24} color="black" />
                             </TouchableOpacity>
                         )
@@ -44,11 +46,31 @@ const LocationStack = () => {
             </Stack.Screen>
 
             <Stack.Screen
-                name="Save-Location"
+                name="Save-location"
                 component={SaveLocationScreen}
                 options={
                     {
                         title: "Guardar dirección"
+                    }
+                }
+            />
+
+            <Stack.Screen
+                name="Get-location"
+                component={GetLocationScreen}
+                options={
+                    {
+                        title: "Obtener ubicación"
+                    }
+                }
+            />
+
+            <Stack.Screen
+                name="Set-location"
+                component={SetLocationScreen}
+                options={
+                    {
+                        title: "Definir ubicación"
                     }
                 }
             />
