@@ -1,8 +1,22 @@
 import { StyleSheet, Text, Touchable, TouchableOpacity, View, Image } from 'react-native'
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { colors } from '../Styles/Colors'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { removeLocation, removeLocationDb } from '../Features/Locations';
 
-const PlaceItem = ({ onSelect, title, image, address }) => {
+
+const PlaceItem = ({ onSelect, title, image, address, id }) => {
+
+    const dispatch = useDispatch()
+
+    const onRemove = (id) => {
+        console.log(id);
+        dispatch(removeLocationDb({ id }))
+        dispatch(removeLocation({ id }))
+    }
+
+
     return (
         <TouchableOpacity
             onPress={onSelect}
@@ -16,6 +30,9 @@ const PlaceItem = ({ onSelect, title, image, address }) => {
                 <Text style={styles.title}>{title}</Text>
                 <Text style={styles.address}>{address}</Text>
             </View>
+            <TouchableOpacity onPress={() => onRemove(id)}>
+                <MaterialCommunityIcons name="select-remove" size={55} color="black" />
+            </TouchableOpacity>
         </TouchableOpacity>
     )
 }

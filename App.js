@@ -8,6 +8,18 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import MainNavigator from './Navigation';
 import store from './Store';
 import { Provider } from 'react-redux'
+import { init } from './db';
+
+
+
+
+init()
+  .then(() => { console.log('db inicializado'); })
+  .catch((err) => {
+    console.log('Error loading db');
+    console.log(err.message);
+  })
+
 
 
 export default function App() {
