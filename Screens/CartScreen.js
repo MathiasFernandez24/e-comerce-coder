@@ -4,15 +4,11 @@ import CartItem from '../Components/CartItem'
 // import PRODUCTSSELECTED from '../Data/ProductSelected'
 import { colors } from '../Styles/Colors'
 import { useDispatch, useSelector } from 'react-redux'
-import { confirmPurchase } from '../Features/Cart'
+import { confirmPurchase, removeItem } from '../Features/Cart'
 
-const handleDeleteItem = (id) => { console.log(`Se elimina del carrito el producto con el id: ${id}`) }
 
-const renderItem = (data) => {
-    return (
-        <CartItem item={data.item} onDelete={handleDeleteItem} />
-    )
-}
+
+
 
 const CartScreen = () => {
 
@@ -20,11 +16,23 @@ const CartScreen = () => {
     const { cart } = useSelector(state => state.cart.value)
     console.log(cart);
 
+
+    const handleDeleteItem = (id) => {
+        dispatch(removeItem({ id: id }))
+        console.log(`Se elimina del carrito el producto con el id: ${id}`)
+    }
+
+    const renderItem = (data) => {
+        return (
+            <CartItem item={data.item} onDelete={handleDeleteItem} />
+        )
+    }
+
     const handleConfirm = () => {
         dispatch(confirmPurchase(cart))
     }
 
-    const total = "$12.000";
+    const total = "12.000";
 
     return (
         <View style={styles.container}>
@@ -39,7 +47,7 @@ const CartScreen = () => {
                 <TouchableOpacity style={styles.confirm} onPress={handleConfirm}>
                     <Text style={styles.text}>Confirmar</Text>
                     <View style={styles.total}>
-                        <Text style={styles.text}>Total</Text>
+                        <Text style={styles.text}>Total:  $</Text>
                         <Text style={styles.text}>{total}</Text>
                     </View>
                 </TouchableOpacity>
@@ -79,7 +87,7 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 18,
         fontFamily: 'NunitoBlack',
-        padding: 8
+        padding: 1
     }
 })
 

@@ -14,11 +14,12 @@ const CartItem = ({ item, onDelete }) => {
           <Text style={styles.text}>Cantidad: {item.quantity}</Text>
           <Text style={styles.text}>${item.price}</Text>
         </View>
-        <TouchableOpacity onPress={() => onDelete(item.id)}>
-          <Ionicons name="trash" size={24}></Ionicons>
-        </TouchableOpacity>
+        <View>
+          <TouchableOpacity onPress={() => onDelete(item.id)}>
+            <Ionicons name="trash" size={24}></Ionicons>
+          </TouchableOpacity>
+        </View>
       </View>
-
     </View>
   )
 }
@@ -29,7 +30,7 @@ const styles = StyleSheet.create({
   item: {
     flex: 1,
     padding: 8,
-    borderBottomWidth: 1,
+    borderBottomWidth: 1.5,
     borderBottomColor: colors.primario
   },
   header: {

@@ -55,7 +55,30 @@ export const cartSlice = createSlice({
                 state.value.cart.push({ ...producto, quantity: 1 })
             }
         },
-        removeItem: () => { },
+
+
+
+
+        //INTENTANDO AGREGAR LA FUNCION PARA BORRAR DEL CARRITO-------------------------
+        removeItem: (state, action) => {
+            const productoRepetido = state.value.cart.find(producto => producto.id === action.payload.id)
+            console.log(state.value.cart.find(producto => producto.quantity));
+            if (productoRepetido) {
+                state.value.cart.map(item => {
+                    if (item.id === action.payload.id) {
+                        item.quantity--
+                        if (item.quantity == 0) {
+                            console.log("borrar articulo de la lista-----------------");
+                        }
+                        return item
+
+                    }
+                })
+            } else {
+                const producto = PRODUCTS.find(producto => producto.id === action.payload.id)
+                state.value.cart.push({ ...producto, quantity: 1 })
+            }
+        },
     },
     extraReducers: {
         [confirmPurchase.pending]: (state) => { state.value.loading = true },
@@ -70,6 +93,6 @@ export const cartSlice = createSlice({
     }
 })
 
-export const { addItem, removeIten } = cartSlice.actions
+export const { addItem, removeItem } = cartSlice.actions
 
 export default cartSlice.reducer

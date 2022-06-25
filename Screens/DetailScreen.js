@@ -1,4 +1,4 @@
-import { useWindowDimensions, Button, StyleSheet, Text, View, Image, Dimensions } from 'react-native'
+import { useWindowDimensions, Button, StyleSheet, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import Header from '../Components/Header'
 import CategoryItem from '../Components/List/CategoryItem'
@@ -6,6 +6,7 @@ import ListIndex from '../Components/List/ListIndex'
 import { PRODUCTS } from '../Data/Products'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItem } from '../Features/Cart'
+import { colors } from '../Styles/Colors'
 
 
 
@@ -39,7 +40,7 @@ const DetailScreen = ({ route, navigation
     useEffect(() => {
         setOrientation(height > width ? "vertical" : "horizontal")
     }, [height, width])
-    console.log(orientation)
+    // console.log(orientation)
 
 
     // useEffect(() => {
@@ -57,9 +58,14 @@ const DetailScreen = ({ route, navigation
                         style={orientation === 'vertical' ? styles.imageVertical : styles.imageHorizontal} />
                     <View style={{ paddingHorizontal: 20 }}>
                         <Text style={styles.textPrice}>$ {productSelected?.price}</Text>
-                        <Text>{productSelected?.description}</Text>
-                        <Button onPress={() => navigation.goBack()} title='Go Back' />
-                        <Button onPress={() => handleAdd(productSelected.id)} title=" Add to Cart" />
+                        <Text style={{ marginBottom: 20 }}>{productSelected?.description}</Text>
+                        <TouchableOpacity style={styles.boton} onPress={() => navigation.goBack()}>
+                            <Text style={styles.textBoton}> Go Back</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={styles.boton} onPress={() => handleAdd(productSelected.id)}>
+                            <Text style={styles.textBoton}> Add to Cart</Text>
+                        </TouchableOpacity>
 
                     </View>
                 </View>
@@ -102,4 +108,29 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontFamily: "NunitoBlackItalic",
     },
+    boton: {
+        borderRadius: 10,
+        alignItems: "center",
+        backgroundColor: colors.terciario,
+        padding: 10,
+        margin: 8,
+        borderColor: colors.secundario,
+        borderWidth: 2,
+
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 5,
+        },
+        shadowOpacity: 0.34,
+        shadowRadius: 6.27,
+        elevation: 10,
+
+
+    },
+    textBoton: {
+        fontSize: 15,
+        fontFamily: "NunitoRegular",
+
+    }
 })

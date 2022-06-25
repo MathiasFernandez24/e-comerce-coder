@@ -54,9 +54,9 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation, ro
         dispatch(setProductSelected(product.id))
         navigation.navigate("Details",
             {
-                categoryTitle: category.category
-                // productId: product.id,
-                // productTitle: product.description,
+                // categoryTitle: category.category
+                productId: product.id,
+                productTitle: product.description,
             });
         console.log(product)
     }
@@ -78,7 +78,9 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation, ro
                     <Searcher additionalStyles={{
                         backgroundColor: colors.secundario
                     }}>
-                        <Button title={"<- Go \n back"} onPress={() => navigation.goBack()} style={{ margin: 10 }} />
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.buttonBack}>
+                            <Text>{"<- Go\n back"}</Text>
+                        </TouchableOpacity>
 
                         <TextInput
                             value={input}
@@ -99,7 +101,7 @@ const ProductsScreen = ({ category = { id: 1, category: "Ropa" }, navigation, ro
                     {/* quite el button a modo de prueba y lo puse dentro de Search para tener mas pantalla */}
                     <View style={{
                         ...styles.listContainer,
-                        height: height < 534 ? "76%" : "83%"
+                        height: height < 534 ? "75%" : "77%"
                     }}>{console.log(height)}
                         {productsFiltered.length !== 0 ?
                             <ListIndex data={productsFiltered} itemType={"Producto"} onPress={handleDetailProduct} />
@@ -143,5 +145,10 @@ const styles = ({
     listContainer: {
         marginTop: 8,
         // height: "50%", /*cambié por useWindowDimensions*/
+    },
+    buttonBack: {
+        backgroundColor: colors.terciario,
+        padding: 3,
+        borderRadius: 5,
     }
 })

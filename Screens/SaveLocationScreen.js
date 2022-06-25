@@ -1,4 +1,4 @@
-import { Button, Image, StyleSheet, Text, TextInput, View } from 'react-native'
+import { Button, Image, StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native'
 import React from 'react'
 import * as ImagePicker from 'expo-image-picker';
 import renamePathAndMove from '../Utils/renamePath';
@@ -79,12 +79,12 @@ const SaveLocationScreen = ({ navigation, route }) => {
 
     return (
         <View style={styles.container}>
-            <Text>Nueva dirección</Text>
+            <Text style={styles.buttonText}>Nueva dirección</Text>
             <TextInput
                 style={styles.input}
                 value={title}
                 onChangeText={setTitle}
-                placeholder="Título"
+                placeholder="Ingrese título"
             />
             {picture ?
                 <Image
@@ -93,11 +93,26 @@ const SaveLocationScreen = ({ navigation, route }) => {
                 />
                 : null
             }
-            <Button title='Tomar una foto' onPress={handleTakePicture} />
-            <Button title="Seleccionar de la galería" onPress={handlePickLibrary} />
-            <Button title="Obtener una ubicación" onPress={handleLocation} />
-            <Button title="Definir una ubicación" onPress={handleSetLocation} />
-            <Button title="Confirmar" onPress={handleConfirm}></Button>
+            <TouchableOpacity onPress={handleTakePicture} style={styles.button}>
+                <Text style={styles.buttonText}>Tomar una foto</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handlePickLibrary} style={styles.button}>
+                <Text style={styles.buttonText}>Seleccionar de la galería</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleLocation} style={styles.button}>
+                <Text style={styles.buttonText}>Obtener mi ubicación</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleSetLocation} style={styles.button}>
+                <Text style={styles.buttonText}>Definir la ubicación</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleConfirm} style={styles.button}>
+                <Text style={styles.buttonText}>Confirmar</Text>
+            </TouchableOpacity>
+
+
+
+
+
         </View>
     )
 }
@@ -120,7 +135,23 @@ const styles = StyleSheet.create({
         borderColor: colors.primario,
     },
     input: {
+        borderBottomWidth: 2,
         fontSize: 24,
-        height: 40
+        height: 40,
+        margin: 8,
+        padding: 8
+    },
+    button: {
+        backgroundColor: colors.secundario,
+        borderColor: colors.primario,
+        borderRadius: 5,
+        borderWidth: 2,
+        margin: 5,
+        padding: 5,
+
+    },
+    buttonText: {
+        fontFamily: 'NunitoBlack',
+        fontSize: 20
     }
 })
