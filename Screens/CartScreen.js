@@ -32,7 +32,15 @@ const CartScreen = () => {
         dispatch(confirmPurchase(cart))
     }
 
-    const total = "12.000";
+    const total = 150000
+    // () => {
+    //     element=0
+    //     for (let index = 0; index < array.length; index++) {
+    //         const element = element + price*quantity; //price y quantiti de cada articulo ene l carrito
+
+    //     }
+    //     return element
+    // };
 
     return (
         <View style={styles.container}>

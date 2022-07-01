@@ -9,7 +9,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { useDispatch, useSelector } from 'react-redux'
 import Categories, { selectCategory } from '../Features/Categories'
 import { setProductsByCategory } from '../Features/Products'
-
+import { login, logout } from '../Features/Auth'
 
 
 const CategoriesScreen = ({ navigation }) => {
@@ -24,7 +24,10 @@ const CategoriesScreen = ({ navigation }) => {
     // const categories = useSelector(state => state.categories.value)
     //console.log(CATEGORIES);
 
+    const logout2 = () => {
+        dispatch(logout(login.state))
 
+    }
     const handleErase = () => {
         setInput("");
     }
@@ -77,6 +80,9 @@ const CategoriesScreen = ({ navigation }) => {
                             <MaterialIcons name="delete-forever" size={36} color="black" style={{ margin: 8 }} />
                         </TouchableOpacity>
                     </Searcher>
+                    <TouchableOpacity style={styles.logout} onPress={logout2}>
+                        <Text style={styles.logoutText}>Cerrar usuario</Text>
+                    </TouchableOpacity>
                     <View style={styles.listContainer}>
                         {categoriesFilter.length !== 0 ?
                             <ListIndex data={categoriesFilter} onPress={handleSelectedCategory} />
@@ -115,5 +121,17 @@ const styles = ({
     },
     listContainer: {
         flex: 1,
+    },
+    logout: {
+        marginBottom: 15,
+        padding: 5,
+        backgroundColor: colors.secundario,
+        borderRadius: 5,
+        borderWidth: 1,
+
+    },
+    logoutText: {
+        fontSize: 20,
     }
+
 })

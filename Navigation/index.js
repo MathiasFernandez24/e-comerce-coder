@@ -14,7 +14,7 @@ const MainNavigator = () => {
     return (
         <NavigationContainer>
             {user.email ?
-                // {/* {true ? */}
+                /* {true ? */
                 <TabNavigatorLogged />
                 :
                 <AuthStack />
